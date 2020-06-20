@@ -7,9 +7,6 @@ import fetchMiddleware from './middleware/fetchMiddleware';
 import bookmarks from './modules/bookmarks/reducer';
 import categories from './modules/categories/reducer';
 
-// These lines of code will be removed on the next recipe
-import { loadCategories } from './modules/categories/actions';
-
 const reducers = combineReducers({
   bookmarks,
   categories,
@@ -19,6 +16,5 @@ const store = createStore(
   reducers,
   applyMiddleware(fetchMiddleware),
 );
+
 export default store;
-store.subscribe(() => console.log(store.getState()));
-store.dispatch(loadCategories());
