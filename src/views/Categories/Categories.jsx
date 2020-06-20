@@ -6,6 +6,7 @@ import {
   StyleSheet,
   Text,
   View,
+  Alert,
 } from 'react-native';
 import { connect } from 'react-redux';
 import { loadCategories } from '../../redux/modules/categories';
@@ -59,12 +60,21 @@ class Categories extends Component {
   };
 
   render() {
+    if (this.props.isOnline === false) {
+      Alert.alert(
+        'Offline',
+        "You don't have internet connection",
+      );
+    }
+
     return (
       <View style={styles.container}>
         <Text style={styles.toolbar}>Categories</Text>
         <FlatList
           data={this.state.dataSource}
-          renderItem={(rowData) => <Text>{rowData.item.name}</Text>}
+          renderItem={(rowData) => (
+            <Text>{rowData.item.name}</Text>
+          )}
           keyExtractor={(item, index) => index.toString()}
         />
       </View>
@@ -74,6 +84,7 @@ class Categories extends Component {
 
 const mapStateToProps = (state) => ({
   categories: state.categories.all,
+  isOnline: state.network.isOnline,
 });
 
 export default connect(mapStateToProps)(Categories);
