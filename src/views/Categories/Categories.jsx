@@ -37,7 +37,7 @@ class Categories extends Component {
     super(props);
 
     this.state = {
-      dataSource: [],
+      dataSource: this.props.categories,
     };
   }
 
